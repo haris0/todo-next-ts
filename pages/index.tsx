@@ -8,6 +8,7 @@ import {
   useDoneTodos,
   useUnDoneTodos,
   useChangeStatus,
+  useTodoById,
 } from 'context/TodosContext';
 import type { GetStaticProps, NextPage } from 'next';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -41,6 +42,7 @@ const Home: NextPage<{
   const createTodo = useCreateTodo();
   const changeStatus = useChangeStatus();
   const deleteTodo = useDeleteTodo();
+  const todoById = useTodoById();
 
   const [actionType, setActionType] = useState<'create' | 'update'>('create');
 
@@ -65,8 +67,11 @@ const Home: NextPage<{
     setModalShow(true);
   };
 
-  const handleEditTodo = () => {
+  const handleEditTodo = (id: number) => {
     setActionType('update');
+    const todo = todoById(id);
+    setTitle(todo?.title as string);
+    setDesc(todo?.description as string);
     setModalShow(true);
   };
 
@@ -79,8 +84,9 @@ const Home: NextPage<{
   };
 
   const handleSubmit = (type: string) => {
-    console.log(type);
-    createTodo(title, desc);
+    if (type === 'create') {
+      createTodo(title, desc);
+    }
     setDefaultModal();
   };
 
@@ -126,7 +132,7 @@ const Home: NextPage<{
                     todo={todo}
                     type="undone"
                     onChangeStatus={(id) => handleChangeStatus(id)}
-                    onEdit={() => handleEditTodo()}
+                    onEdit={(id) => handleEditTodo(id)}
                     onDelete={(id) => handleDeleteTodo(id)}
                   />
                 ))}
@@ -145,7 +151,7 @@ const Home: NextPage<{
                     todo={todo}
                     type="done"
                     onChangeStatus={(id) => handleChangeStatus(id)}
-                    onEdit={() => handleEditTodo()}
+                    onEdit={(id) => handleEditTodo(id)}
                     onDelete={(id) => handleDeleteTodo(id)}
                   />
                 ))}

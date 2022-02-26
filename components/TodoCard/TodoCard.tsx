@@ -8,7 +8,7 @@ type props = {
   todo: ITodo
   type: 'undone' | 'done',
   onChangeStatus: (id: number) => void,
-  onEdit: () => void,
+  onEdit: (id: number) => void,
   onDelete: (id: number) => void,
 }
 
@@ -38,7 +38,7 @@ const TodoCard = ({
       <Button
         variant="warning"
         className={styles.margin}
-        onClick={() => onEdit()}
+        onClick={() => onEdit(todo.id)}
       >
         Edit
       </Button>
