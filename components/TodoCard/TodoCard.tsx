@@ -1,5 +1,4 @@
 import { longDateFormat } from 'mixin';
-import React from 'react';
 import { Card } from 'react-bootstrap';
 import { ITodo } from 'types';
 import styles from './TodoCard.module.scss';
