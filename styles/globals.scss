@@ -14,3 +14,36 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.container-custom{
+  padding-top: 6rem!important;
+  padding-bottom: 3rem!important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 7px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
