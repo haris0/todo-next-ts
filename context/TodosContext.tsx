@@ -45,7 +45,7 @@ const TodosContextProvider = ({ children }: props) => {
   const [todos, setTodos] = useState<ITodo[]>(initialTodos.todos);
 
   const createTodo = (title: string, description: string) => {
-    const id = todos[todos.length - 1].id + 1;
+    const id = new Date().getTime() + Math.random();
     const status = 0;
     const createdAt = generateCurrentDate();
     const newTodo = {
