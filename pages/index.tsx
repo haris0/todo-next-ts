@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import TodoCard from 'components/TodoCard/TodoCard';
 import {
   useAddInitialTodos,
   useDoneTodos,
@@ -54,29 +55,25 @@ const Home: NextPage<{
             <h2 className="header">
               Todo
             </h2>
-            <div>
-              {unDoneTodos() && (
-                <ul>
-                  { unDoneTodos().map((todo) => (
-                    <li key={todo.id}> {todo.title} </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            {unDoneTodos() && (
+              <div className={styles.todo_list}>
+                {unDoneTodos().map((todo) => (
+                  <TodoCard key={todo.id} todo={todo} />
+                ))}
+              </div>
+            )}
           </div>
           <div className={styles.completed}>
             <h2 className="header">
               Completed
             </h2>
-            <div>
-              {doneTodos() && (
-                <ul>
-                  { doneTodos().map((todo) => (
-                    <li key={todo.id}> {todo.title} </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            {doneTodos() && (
+              <div className={styles.todo_list}>
+                {doneTodos().map((todo) => (
+                  <TodoCard key={todo.id} todo={todo} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div>
