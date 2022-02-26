@@ -43,25 +43,41 @@ const Home: NextPage<{
   return (
     <Container className="container-custom">
       <main className={styles.main}>
-        <div>
-          <h5>Todo</h5>
-          {unDoneTodos() && (
-            <ul>
-              { unDoneTodos().map((todo) => (
-                <li key={todo.id}> {todo.title} </li>
-              ))}
-            </ul>
-          )}
+        <div className={styles.header}>
+          <h1>Todo List</h1>
+          <button type="button" className={styles.create_button}>
+            Create Todo
+          </button>
         </div>
-        <div>
-          <h5>Completed</h5>
-          {doneTodos() && (
-            <ul>
-              { doneTodos().map((todo) => (
-                <li key={todo.id}> {todo.title} </li>
-              ))}
-            </ul>
-          )}
+        <div className={styles.board}>
+          <div className={styles.todo}>
+            <h2 className="header">
+              Todo
+            </h2>
+            <div>
+              {unDoneTodos() && (
+                <ul>
+                  { unDoneTodos().map((todo) => (
+                    <li key={todo.id}> {todo.title} </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+          <div className={styles.completed}>
+            <h2 className="header">
+              Completed
+            </h2>
+            <div>
+              {doneTodos() && (
+                <ul>
+                  { doneTodos().map((todo) => (
+                    <li key={todo.id}> {todo.title} </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
         </div>
         <div>
           {todoErr && !todoRes && (
