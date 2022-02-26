@@ -123,7 +123,9 @@ const Home: NextPage<{
             className={styles.create_button}
             onClick={() => handleCreateTodo()}
           >
-            Create Todo
+            <b>
+              Create Todo
+            </b>
           </button>
         </div>
         <div className={styles.board}>
