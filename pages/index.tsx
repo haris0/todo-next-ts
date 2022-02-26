@@ -7,6 +7,7 @@ import {
   useDeleteTodo,
   useDoneTodos,
   useUnDoneTodos,
+  useChangeStatus,
 } from 'context/TodosContext';
 import type { GetStaticProps, NextPage } from 'next';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -38,6 +39,7 @@ const Home: NextPage<{
   const unDoneTodos = useUnDoneTodos();
   const addInitialTodos = useAddInitialTodos();
   const createTodo = useCreateTodo();
+  const changeStatus = useChangeStatus();
   const deleteTodo = useDeleteTodo();
 
   const [actionType, setActionType] = useState<'create' | 'update'>('create');
@@ -68,8 +70,8 @@ const Home: NextPage<{
     setModalShow(true);
   };
 
-  const handleChangeStatus = () => {
-    console.log('change status');
+  const handleChangeStatus = (id: number) => {
+    changeStatus(id);
   };
 
   const handleDeleteTodo = (id: number) => {
@@ -123,7 +125,7 @@ const Home: NextPage<{
                     key={todo.id}
                     todo={todo}
                     type="undone"
-                    onChangeStatus={() => handleChangeStatus()}
+                    onChangeStatus={(id) => handleChangeStatus(id)}
                     onEdit={() => handleEditTodo()}
                     onDelete={(id) => handleDeleteTodo(id)}
                   />
@@ -142,7 +144,7 @@ const Home: NextPage<{
                     key={todo.id}
                     todo={todo}
                     type="done"
-                    onChangeStatus={() => handleChangeStatus()}
+                    onChangeStatus={(id) => handleChangeStatus(id)}
                     onEdit={() => handleEditTodo()}
                     onDelete={(id) => handleDeleteTodo(id)}
                   />

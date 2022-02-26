@@ -16,6 +16,7 @@ export interface TodoContextType {
   addInitialTodos: (todos: ITodo[]) => void;
   createTodo : (title: string, description: string) => void;
   updateTodo : (todo: ITodo) => void;
+  changeStatus : (id: number) => void;
   deleteTodo : (id : number) => void;
   doneTodos : () => ITodo[];
   unDoneTodos : () => ITodo[];
@@ -26,6 +27,7 @@ const initialTodos: TodoContextType = {
   addInitialTodos: () => {},
   createTodo: () => {},
   updateTodo: () => {},
+  changeStatus: () => {},
   deleteTodo: () => {},
   doneTodos: () => [],
   unDoneTodos: () => [],
@@ -76,6 +78,13 @@ const TodosContextProvider = ({ children }: props) => {
     });
   };
 
+  const changeStatus = (id: number) => {
+    const index = todos.findIndex((todo) => todo.id === id);
+    const updateTodos = [...todos];
+    updateTodos[index].status = updateTodos[index].status === 1 ? 0 : 1;
+    setTodos(updateTodos);
+  };
+
   const deleteTodo = (id: number) => {
     setTodos((prev) => prev.filter((item) => item.id !== id));
   };
@@ -107,6 +116,7 @@ const TodosContextProvider = ({ children }: props) => {
     addInitialTodos,
     createTodo,
     updateTodo,
+    changeStatus,
     deleteTodo,
     doneTodos,
     unDoneTodos,
@@ -141,6 +151,12 @@ export const useUpdateTodo = () => {
   const { updateTodo } = useContext(TodosContext);
 
   return updateTodo;
+};
+
+export const useChangeStatus = () => {
+  const { changeStatus } = useContext(TodosContext);
+
+  return changeStatus;
 };
 
 export const useDeleteTodo = () => {
