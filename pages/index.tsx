@@ -4,6 +4,7 @@ import TodoCard from 'components/TodoCard/TodoCard';
 import {
   useAddInitialTodos,
   useCreateTodo,
+  useDeleteTodo,
   useDoneTodos,
   useUnDoneTodos,
 } from 'context/TodosContext';
@@ -37,6 +38,7 @@ const Home: NextPage<{
   const unDoneTodos = useUnDoneTodos();
   const addInitialTodos = useAddInitialTodos();
   const createTodo = useCreateTodo();
+  const deleteTodo = useDeleteTodo();
 
   const [actionType, setActionType] = useState<'create' | 'update'>('create');
 
@@ -59,6 +61,19 @@ const Home: NextPage<{
   const handleCreateTodo = () => {
     setActionType('create');
     setModalShow(true);
+  };
+
+  const handleEditTodo = () => {
+    setActionType('update');
+    setModalShow(true);
+  };
+
+  const handleChangeStatus = () => {
+    console.log('change status');
+  };
+
+  const handleDeleteTodo = (id: number) => {
+    deleteTodo(id);
   };
 
   const handleSubmit = (type: string) => {
@@ -104,7 +119,14 @@ const Home: NextPage<{
             {unDoneTodos() && (
               <div className={styles.todo_list}>
                 {unDoneTodos().map((todo) => (
-                  <TodoCard key={todo.id} todo={todo} />
+                  <TodoCard
+                    key={todo.id}
+                    todo={todo}
+                    type="undone"
+                    onChangeStatus={() => handleChangeStatus()}
+                    onEdit={() => handleEditTodo()}
+                    onDelete={(id) => handleDeleteTodo(id)}
+                  />
                 ))}
               </div>
             )}
@@ -116,7 +138,14 @@ const Home: NextPage<{
             {doneTodos() && (
               <div className={styles.todo_list}>
                 {doneTodos().map((todo) => (
-                  <TodoCard key={todo.id} todo={todo} />
+                  <TodoCard
+                    key={todo.id}
+                    todo={todo}
+                    type="done"
+                    onChangeStatus={() => handleChangeStatus()}
+                    onEdit={() => handleEditTodo()}
+                    onDelete={(id) => handleDeleteTodo(id)}
+                  />
                 ))}
               </div>
             )}

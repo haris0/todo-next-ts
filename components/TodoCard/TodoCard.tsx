@@ -1,13 +1,24 @@
+/* eslint-disable no-unused-vars */
 import { longDateFormat } from 'mixin';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { ITodo } from 'types';
 import styles from './TodoCard.module.scss';
 
 type props = {
   todo: ITodo
+  type: 'undone' | 'done',
+  onChangeStatus: () => void,
+  onEdit: () => void,
+  onDelete: (id: number) => void,
 }
 
-const TodoCard = ({ todo }: props) => (
+const TodoCard = ({
+  type,
+  todo,
+  onChangeStatus,
+  onEdit,
+  onDelete,
+}: props) => (
   <Card>
     <Card.Body>
       <Card.Title>{todo.title}</Card.Title>
@@ -17,6 +28,29 @@ const TodoCard = ({ todo }: props) => (
       <Card.Text className="mt-3">
         {todo.description}
       </Card.Text>
+      <Button
+        variant="success"
+        className={styles.margin}
+        onClick={() => onChangeStatus()}
+      >
+        {type === 'undone' ? 'Done' : 'UnDone'}
+      </Button>
+      <Button
+        variant="warning"
+        className={styles.margin}
+        onClick={() => onEdit()}
+      >
+        Edit
+      </Button>
+      {type === 'undone' && (
+        <Button
+          variant="danger"
+          className={styles.margin}
+          onClick={() => onDelete(todo.id)}
+        >
+          Delete
+        </Button>
+      )}
     </Card.Body>
   </Card>
 );
