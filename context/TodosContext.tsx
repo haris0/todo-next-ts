@@ -16,7 +16,7 @@ export interface TodoContextType {
   addInitialTodos: (todos: ITodo[]) => void;
   createTodo : (title: string, description: string) => void;
   todoById: (id: number) => ITodo | undefined,
-  updateTodo : (todo: ITodo) => void;
+  updateTodo : (id: number, title: string, description: string) => void;
   changeStatus : (id: number) => void;
   deleteTodo : (id : number) => void;
   doneTodos : () => ITodo[];
@@ -74,15 +74,12 @@ const TodosContextProvider = ({ children }: props) => {
     return todos[index];
   };
 
-  const updateTodo = (updatedTodo: ITodo) => {
-    const index = todos.findIndex((todo) => todo.id === updatedTodo.id);
-    setTodos((prev) => {
-      prev[index] = {
-        ...prev[index],
-        ...updatedTodo,
-      };
-      return prev;
-    });
+  const updateTodo = (id: number, title: string, description: string) => {
+    const index = todos.findIndex((todo) => todo.id === id);
+    const updateTodos = [...todos];
+    updateTodos[index].title = title;
+    updateTodos[index].description = description;
+    setTodos(updateTodos);
   };
 
   const changeStatus = (id: number) => {

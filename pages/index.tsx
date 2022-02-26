@@ -9,6 +9,7 @@ import {
   useUnDoneTodos,
   useChangeStatus,
   useTodoById,
+  useUpdateTodo,
 } from 'context/TodosContext';
 import type { GetStaticProps, NextPage } from 'next';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -43,8 +44,10 @@ const Home: NextPage<{
   const changeStatus = useChangeStatus();
   const deleteTodo = useDeleteTodo();
   const todoById = useTodoById();
+  const updateTodo = useUpdateTodo();
 
   const [actionType, setActionType] = useState<'create' | 'update'>('create');
+  const [editId, seteditId] = useState(0);
 
   const [modalShow, setModalShow] = useState(false);
   const [title, setTitle] = useState('');
@@ -60,6 +63,7 @@ const Home: NextPage<{
     setTitle('');
     setDesc('');
     setModalShow(false);
+    seteditId(0);
   };
 
   const handleCreateTodo = () => {
@@ -70,6 +74,7 @@ const Home: NextPage<{
   const handleEditTodo = (id: number) => {
     setActionType('update');
     const todo = todoById(id);
+    seteditId(id);
     setTitle(todo?.title as string);
     setDesc(todo?.description as string);
     setModalShow(true);
@@ -86,6 +91,8 @@ const Home: NextPage<{
   const handleSubmit = (type: string) => {
     if (type === 'create') {
       createTodo(title, desc);
+    } else {
+      updateTodo(editId, title, desc);
     }
     setDefaultModal();
   };

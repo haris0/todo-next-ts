@@ -7,11 +7,11 @@ type props = {
   show: boolean,
   onHide: () => void,
   type: 'create' | 'update',
-  title: string;
-  desc: string;
-  onTitleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onDescChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (type: string) => void;
+  title: string,
+  desc: string,
+  onTitleChange: (event: ChangeEvent<HTMLInputElement>) => void,
+  onDescChange: (event: ChangeEvent<HTMLInputElement>) => void,
+  onSubmit: (type: string) => void,
 }
 
 const FormModal = ({

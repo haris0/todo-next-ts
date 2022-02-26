@@ -5,7 +5,7 @@ import { ITodo } from 'types';
 import styles from './TodoCard.module.scss';
 
 type props = {
-  todo: ITodo
+  todo: ITodo,
   type: 'undone' | 'done',
   onChangeStatus: (id: number) => void,
   onEdit: (id: number) => void,
@@ -33,7 +33,7 @@ const TodoCard = ({
         className={styles.margin}
         onClick={() => onChangeStatus(todo.id)}
       >
-        {type === 'undone' ? 'Done' : 'UnDone'}
+        {type === 'undone' ? 'Done' : 'Undone'}
       </Button>
       <Button
         variant="warning"
